@@ -1,0 +1,10 @@
+{
+  "name": "graphQL-tut",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mmswi/graphQL-tut.git",
+  "license": "MIT",
+  "dependencies": {
+    "graphql-yoga": "^1.13.1"
+  }
+}
