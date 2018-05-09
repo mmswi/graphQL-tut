@@ -44,13 +44,18 @@ async function login(parent, args, context, info) {
 }
 
 function post(parent, args, context, info) {
-  const userId = getUserId(context)
+  let userId
+  try {
+    userId = getUserId(context)
+  } catch (err) {
+    console.log("error", err)
+  }
   return context.db.mutation.createLink(
     {
       data: {
         url: args.url,
         description: args.description,
-        postedBy: { connect: { id: userId } },
+        postedBy: { connect: { id: userId || "cjgzgkcxt10rh0b84qfdyehvc" } }, // hardcoded user id
       },
     },
     info,
@@ -62,3 +67,31 @@ module.exports = {
     login,
     post,
 }
+
+/*
+ used mutation for post
+ mutation {
+  post(
+    url: "www.graphql-europe.org"
+    description: "Europe's biggest GraphQL conference"
+  ) {
+    id
+  }
+}
+
+ mutation {
+  login(
+    email: "alice2@graph.cool"
+    password: "graphql"
+  ) {
+    token
+    user {
+      id
+      links {
+        url
+        description
+      }
+    }
+  }
+}
+*/ 
